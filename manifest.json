@@ -1,0 +1,14 @@
+{
+  "name": "理化群島大冒險",
+  "short_name": "理化群島",
+  "description": "國中理化闖關遊戲：測量島（長度、質量、體積、密度）",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#4fc3f7",
+  "theme_color": "#0277bd",
+  "lang": "zh-Hant-TW",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
