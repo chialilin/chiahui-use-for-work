@@ -39,9 +39,9 @@ const App = {
 
   route() {
     this.leave();
-    const parts = (location.hash.slice(1) || '/').split('/').filter(Boolean);
-    if (parts[0] === 'island' && ISLANDS.find(i => i.id === parts[1] && i.open)) this.renderIsland(parts[1]);
-    else if (parts[0] === 'play' && GAMES[parts[1]]) this.renderIntro(parts[1]);
+    const m = location.hash.slice(1).match(/^(island|play)-([a-z]+)$/) || [];
+    if (m[1] === 'island' && ISLANDS.find(i => i.id === m[2] && i.open)) this.renderIsland(m[2]);
+    else if (m[1] === 'play' && GAMES[m[2]]) this.renderIntro(m[2]);
     else this.renderMap();
     window.scrollTo(0, 0);
   },
@@ -71,7 +71,7 @@ const App = {
               </button>`;
             }
             const max = is.levels.length * 3;
-            return `<a class="island open ${side}" href="#/island/${is.id}">
+            return `<a class="island open ${side}" href="#island-${is.id}">
               <div class="island-blob"><span class="island-icon">${is.icon}</span><span class="flag">🚩</span></div>
               <div class="island-label"><small>${is.unit}</small><b>${is.name}</b><span>${is.desc}</span>
                 <em class="go">⭐ ${this.islandStars(is)} / ${max}　登島 ›</em></div>
@@ -89,7 +89,7 @@ const App = {
     document.getElementById('app').innerHTML = `
       <div class="screen island-screen">
         <header class="topbar">
-          <a class="icon-btn" href="#/" aria-label="回到群島地圖">‹</a>
+          <a class="icon-btn" href="#" aria-label="回到群島地圖">‹</a>
           <div class="topbar-title">${is.icon} ${is.name}</div>
           <div class="hud"><span>⭐ ${got}/${max}</span></div>
         </header>
@@ -105,7 +105,7 @@ const App = {
         <div class="path">
           ${is.levels.map((gid, i) => {
             const g = GAMES[gid];
-            return `<a class="node ${g.boss ? 'boss' : ''}" href="#/play/${gid}">
+            return `<a class="node ${g.boss ? 'boss' : ''}" href="#play-${gid}">
               <div class="node-circle">${g.icon}</div>
               <div class="node-info">
                 <small>${g.boss ? '最終挑戰' : `關卡 ${i + 1}`}</small>
@@ -125,7 +125,7 @@ const App = {
     document.getElementById('app').innerHTML = `
       <div class="screen intro-screen">
         <header class="topbar">
-          <a class="icon-btn" href="#/island/${g.island}" aria-label="返回">‹</a>
+          <a class="icon-btn" href="#island-${g.island}" aria-label="返回">‹</a>
           <div class="topbar-title">${g.icon} ${g.title}</div>
           <div class="hud">${U.starsHTML(p.stars)}</div>
         </header>

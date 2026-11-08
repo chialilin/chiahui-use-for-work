@@ -204,7 +204,7 @@ class Shell {
     this.root = root.firstElementChild;
     this.stage = this.root.querySelector('.stage');
     this.root.querySelector('[data-act=back]').addEventListener('click', () => {
-      location.hash = '#/island/' + game.island;
+      location.hash = '#island-' + game.island;
     });
   }
   setRound(i, n) { this.setHud(`${i}/${n}`); window.scrollTo({ top: 0, behavior: 'smooth' }); }
@@ -263,7 +263,7 @@ class Shell {
       </div>`;
     this.stage.querySelector('[data-act=again]').addEventListener('click', () => this.app.startGame(this.game.id));
     this.stage.querySelector('[data-act=island]').addEventListener('click', () => {
-      location.hash = '#/island/' + this.game.island;
+      location.hash = '#island-' + this.game.island;
     });
   }
 }
